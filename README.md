@@ -26,11 +26,20 @@ You must configure in your models the filters the user is allowed to use in the 
      searchable do
        text :title, :body
        time :published_at
+       integer author_id
      end
 
-     sunspot_search_with :title, :body, :published_at
+     sunspot_search_with :title, :body, :published_at, :author_id
    end
 ```
+
+Your parameters keys should be prefixed with 'filter_'. You can use filters in the next way:
+?filter_text=Foo
+?filter_title=My+Awesome+Title
+?filter_author_id=5
+
+Or if you are searching using dates you can use keys like 'filter_published_at_start' and/or 'filter_published_at_end' to set a date range.
+
 
 In your controllers you can simply use **sunspot\_search** to retrieve the results:
 ```ruby
