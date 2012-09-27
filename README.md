@@ -1,6 +1,7 @@
 # SunspotSearch
 
-TODO: Write a gem description
+A gem to search with Sunspot using filters in the query string.
+
 
 ## Installation
 
@@ -18,7 +19,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You must configure in your models the filters the user is allowed to use in the query string using **sunspot\_search\_with**.
+
+```ruby
+   class Article
+     searchable do
+       text :title, :body
+       time :published_at
+     end
+
+     sunspot_search_with :title, :body, :published_at
+   end
+```
+
+In your controllers you can simply use **sunspot\_search** to retrieve the results:
+```ruby
+   class ArticlesController < ActionController::Base
+     def index
+       @articles = Article.sunspot_search(params)
+     end
+   end
+```
 
 ## Contributing
 
