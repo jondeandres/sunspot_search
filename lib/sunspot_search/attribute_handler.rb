@@ -33,10 +33,6 @@ module SunspotSearch
         end
       end
     end
-
-    def dsl_proc(*args, &block)
-      [block] + args.map{|arg| send(arg) }
-    end
   end
 
   class TextHandler < AttributeHandler
