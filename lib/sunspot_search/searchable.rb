@@ -35,9 +35,7 @@ module SunspotSearch
             handler = klass.handler_for(scope, value)
             handler.query(self)
           end
-        end.results
-
-        results
+        end
       end
 
       def handler_for(scope, value)
