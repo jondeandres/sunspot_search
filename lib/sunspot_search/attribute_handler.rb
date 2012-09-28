@@ -68,13 +68,6 @@ module SunspotSearch
     end
   end
 
-  class DateAbstractHandler < AttributeHandler
-
-  end
-
-  class DateHandler < DateAbstractHandler
-  end
-
   class TimeHandler < DateAbstractHandler
     def query_action
       if value[:start] && value[:end]
