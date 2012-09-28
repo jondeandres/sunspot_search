@@ -27,7 +27,6 @@ module SunspotSearch
 
       def sunspot_search(params = { }, options = { })
         raise "Model #{self.name} cannot be searchable with sunspot" unless self.try(&:searchable?)
-        params.symbolize_keys!
         scopes = select_sunspot_scopes(params)
         klass = self
         results = search do
