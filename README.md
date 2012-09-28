@@ -23,6 +23,8 @@ You must configure in your models the filters the user is allowed to use in the 
 
 ```ruby
    class Article
+     include SunspotSearch
+
      searchable do
        text :title, :body
        time :published_at
