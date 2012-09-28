@@ -53,6 +53,19 @@ module SunspotSearch
   end
 
   class BooleanHandler < AttributeHandler
+    def query_action
+      compare
+    end
+
+    def compare
+      proc do |field, boolean_value|
+        with(field, boolean_value)
+      end
+    end
+
+    def boolean_value
+      !![true, 1, "1", "true"].detect{ |t| t == value }
+    end
   end
 
   class DateAbstractHandler < AttributeHandler
