@@ -79,6 +79,12 @@ module SunspotSearch
       end
     end
 
+    def less_than
+      proc do |field, parsed_value|
+        with(field).less_than(parsed_value[:end])
+      end
+    end
+
     def between
       proc do |field, parsed_value|
         with(field, parsed_value[:start]..parsed_value[:end])
