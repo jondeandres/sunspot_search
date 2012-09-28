@@ -47,7 +47,7 @@ In your controllers you can simply use **sunspot\_search** to retrieve the resul
 ```ruby
    class ArticlesController < ActionController::Base
      def index
-       @articles = Article.sunspot_search(params)
+       @articles = Article.sunspot_search(params).results
      end
    end
 ```
