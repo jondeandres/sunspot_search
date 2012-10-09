@@ -105,4 +105,23 @@ module SunspotSearch
       end
     end
   end
+  
+  class OrderByHandler < AttributeHandler
+    def query_action
+      order
+    end
+
+    def order
+      proc do |field, parsed_value|
+        order_by parsed_value[:order_by], (parsed_value[:sort_order] || :desc)
+      end
+    end
+    
+    def parsed_value
+      @parsed_value ||= value.inject({ }) do |acc, item|
+        acc[item.first] = item.last.to_sym
+        acc
+      end
+    end    
+  end
 end

@@ -47,6 +47,8 @@ module SunspotSearch
           field_handler.new( scope, value, :sunspot_type => sunspot_type)
         elsif scope == :text
           TextHandler.new(nil, value)
+        elsif scope == :order_by
+          OrderByHandler.new(nil, value)
         end
       end
 
@@ -55,13 +57,17 @@ module SunspotSearch
       end
 
       def select_sunspot_scopes(params)
-        filters = params.reject {|k,v| !k.to_s.match /^filter_/ }
+        filters = params.reject {|k,v| !k.to_s.match(/^(filter_|order_by|sort_order)/) }
         scopes = filters.inject({}) do |hash, (key,value)|
           k = key.to_s.gsub('filter_', '')
           if k.to_s =~ /(.*)_(start|end)/
             field = $1; type = $2
             hash[field.to_sym] ||= { }
             hash[field.to_sym][type.to_sym] = value
+          elsif k.to_s =~ /(order_by|sort_order)/
+            field = :order_by; type = $1
+            hash[field] ||= { }
+            hash[field][type.to_sym] = value.split(".").last
           else
             hash[k.to_sym] = value
           end
